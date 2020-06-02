@@ -1,21 +1,15 @@
-// обычный синтаксис fetch
-fetch('https://swapi.dev/api/people/1/')
-    .then((res) => {
-        return res.json();
-    })
-    .then((body) => {
-        console.log(body);
-    });
-
-// синтаксис async/await: создаем функцию для возвращения
-// тела любых запросов (запросы передаются по url)
-
 const getResourse = async(url) => {
     const res = await fetch(url);
-    return await res.text();
+    if (!res.ok) {
+        throw new Error(`Could not fetch ${url} received ${res.status}`)
+    }
+    return await res.json();
 };
 
-getResourse('https://swapi.dev/api/people/1/')
+getResourse('https://swapi.dev/api/people/156/')
     .then((body) => {
         console.log(body)
+    })
+    .catch((err) => {
+        console.error('Couls not fetch:', err)
     });
