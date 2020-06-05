@@ -47,4 +47,4 @@ swapi.getPerson(7).then((p) => {
 
 swapi.getAllPlanets().then((planets) => {
     console.log(planets)
-})
+});
