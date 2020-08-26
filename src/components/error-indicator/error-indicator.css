@@ -1,0 +1,20 @@
+.wrapper {
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+
+    font-size: 16px;
+    font-weight: 900;
+    color: chocolate;
+}
+
+.star {
+    width: 80px;
+    filter: sepia(150%);
+}
+
+.boom {
+    text-transform: uppercase;
+    font-size: 21px;
+}

@@ -4,11 +4,12 @@ import './random-planet.css';
 const ViewPlanet = ({ planet }) => {
     const { id, name, population,
         rotationPeriod, diameter } = planet;
+    const _planetImgUrl = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
 
     return (
         <React.Fragment>
-            <img className="planet-image"
-                 src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt={'Совершенно секретно'}/>
+                <img className="planet-image"
+                     src={_planetImgUrl} alt={"Совершенно секретно"}/>
             <div>
                 <h4>{name}</h4>
                 <ul className="list-group list-group-flush">
