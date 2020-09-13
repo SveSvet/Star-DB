@@ -8,23 +8,19 @@ import Loader from "../loader";
 import ErrorIndicator from "../error-indicator";
 
 export default class ItemList extends Component {
-    swapiService = new SwapiService();
-
     state = {
-        peopleList: [],
+        itemList: [],
         loading: true,
         error: false
     };
 
     componentDidMount() {
-        this.getData();
-    };
+        const { getData } = this.props;
 
-    getData = () => {
-        this.swapiService
-            .getAllPeople()
-            .then(this.onPeopleListLoaded)
+        getData()
+            .then(this.onItemListLoaded)
             .catch(this.onError);
+
     };
 
     onError = (err) => {
@@ -34,33 +30,37 @@ export default class ItemList extends Component {
         });
     };
 
-    onPeopleListLoaded = (peopleList) => {
+    onItemListLoaded = (itemList) => {
         this.setState({
-            peopleList,
+            itemList,
             loading: false
         });
     };
 
     renderItems(arr) {
-        return arr.map((person) => {
+        return arr.map((item) => {
+
+            const { id } = item;
+            const label = this.props.children(item);
+
             return (
                 <span className="list-group-item"
-                    key={person.id}
-                    onClick ={() => this.props.onItemSelected(person.id)}
+                    key={id}
+                    onClick ={() => this.props.onItemSelected(id)}
                 >
-                    {person.name}
+                    {label}
                 </span>
             )
         });
     }
 
     render() {
-        const { peopleList, loading, error } = this.state;
+        const { itemList, loading, error } = this.state;
 
         const errorMessage = error ? <ErrorIndicator /> : null;
         const loader = loading ? <Loader /> : null;
 
-        const items = this.renderItems(peopleList);
+        const items = this.renderItems(itemList);
 
         return (
                 <div className="item-list list-group">
