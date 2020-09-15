@@ -14,7 +14,7 @@ import SwapiService from "../../services/swapi-service";
 import './people-page.css';
 
 
-export default class PeoplePage extends React.Component {
+export default class StarshipPage extends React.Component {
     swapiService = new SwapiService();
 
     state = {
@@ -28,7 +28,7 @@ export default class PeoplePage extends React.Component {
     };
 
     render() {
-        const { getAllPeople, getPerson, getPersonImage } = this.swapiService;
+        const { getAllStarships, getStarship, getStarshipImage } = this.swapiService;
 
         if (this.state.hasError) {
             return <ErrorIndicator />
@@ -36,19 +36,19 @@ export default class PeoplePage extends React.Component {
 
         const itemList = (
             <ItemList onItemSelected={this.onItemSelected}
-                      getData={getAllPeople}
+                      getData={getAllStarships}
                 //рендер-функция
                 >
                 {(i) => (
-                    `${i.name} (${i.gender})`
+                    `${i.name}, passengers: ${i.passengers}`
                 )}
             </ItemList>
         );
 
         const itemDetails = (
             <ItemDetails itemId={this.state.selectedItem}
-                         getData={getPerson}
-                         getImageUrl={getPersonImage}/>
+                         getData={getStarship}
+                         getImageUrl={getStarshipImage}/>
         )
 
         return (

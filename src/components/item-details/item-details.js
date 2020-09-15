@@ -4,63 +4,64 @@ import SwapiService from "../../services/swapi-service";
 import './person-details.css';
 import Loader from "../loader";
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
   swapiService = new SwapiService();
 
   state = {
-    person: null,
+    item: null,
+    image: null,
   }
 
   componentDidMount() {
-    this.updatePerson();
+    this.updateItem();
   }
 
-  updatePerson() {
-    const {personId} = this.props;
+  updateItem() {
+    const {itemId, getData, getImageUrl} = this.props;
 
-    if (personId === null) {
+    if (itemId === null) {
       return;
     }
 
-    this.swapiService
-        .getPerson(personId)
-        .then((person) => {
+    getData(itemId)
+        .then((item) => {
           this.setState({
-            person,
+            item,
+            image: getImageUrl(item),
           })
         })
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.personId !== prevProps.personId) {
-      this.updatePerson()
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem()
       this.setState({
-        person: 'loading',
+        item: 'loading',
       })
     }
   }
 
   render() {
 
-    if (!this.state.person) {
-      return <span>Select a person from a list, please</span>;
+    if (!this.state.item) {
+      return <span>Select a item from a list, please</span>;
     }
 
-    if (this.state.person === 'loading') {
+    if (this.state.item === 'loading') {
       return (
           <div className="person-details card">
             <Loader />
           </div>)
     }
 
-    const { person: {id, gender, name,
-            birthYear, eyeColor} } = this.state;
+    const { item: { gender, name,
+            birthYear, eyeColor}, image } = this.state;
 
     return (
       <div className="person-details card">
         <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+          src={image}
           alt="character"
         />
 
