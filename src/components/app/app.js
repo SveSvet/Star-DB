@@ -53,7 +53,7 @@ export class App extends React.Component {
                     <RandomPlanet />
                     <PeoplePage />
                     <StarshipPage />
-                    {/*<Row*/}
+                    {/*<Grid*/}
                     {/*    left={personDetails}*/}
                     {/*    right={starshipDetails}*/}
                     {/*/>*/}

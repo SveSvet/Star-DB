@@ -12,6 +12,7 @@ import SwapiService from "../../services/swapi-service";
 
 // Styles
 import './people-page.css';
+import Grid from "../grid";
 
 
 export default class PeoplePage extends React.Component {
@@ -29,6 +30,7 @@ export default class PeoplePage extends React.Component {
 
     render() {
         const { getAllPeople, getPerson, getPersonImage } = this.swapiService;
+
 
         if (this.state.hasError) {
             return <ErrorIndicator />
@@ -48,7 +50,9 @@ export default class PeoplePage extends React.Component {
         const itemDetails = (
             <ItemDetails itemId={this.state.selectedItem}
                          getData={getPerson}
-                         getImageUrl={getPersonImage}/>
+                         getImageUrl={getPersonImage}>
+                <Grid field="gender" label="Gender" />
+            </ItemDetails>
         )
 
         return (

@@ -12,6 +12,7 @@ import SwapiService from "../../services/swapi-service";
 
 // Styles
 import './people-page.css';
+import Grid from "../grid";
 
 
 export default class StarshipPage extends React.Component {
@@ -48,7 +49,10 @@ export default class StarshipPage extends React.Component {
         const itemDetails = (
             <ItemDetails itemId={this.state.selectedItem}
                          getData={getStarship}
-                         getImageUrl={getStarshipImage}/>
+                         getImageUrl={getStarshipImage}>
+                <Grid field="length" label="Length" />
+                <Grid field="passengers" label="Passengers" />
+            </ItemDetails>
         )
 
         return (
