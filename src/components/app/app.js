@@ -16,6 +16,7 @@ import SwapiService from "../../services/swapi-service";
 // Styles
 import './app.css';
 import StarshipPage from "../starship-page";
+import PlanetPage from "../planet-page.js";
 
 export class App extends React.Component {
     swapiService = new SwapiService();
@@ -53,6 +54,7 @@ export class App extends React.Component {
                     <RandomPlanet />
                     <PeoplePage />
                     <StarshipPage />
+                    <PlanetPage />
                     {/*<Grid*/}
                     {/*    left={personDetails}*/}
                     {/*    right={starshipDetails}*/}

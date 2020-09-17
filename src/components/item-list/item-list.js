@@ -7,67 +7,32 @@ import SwapiService from "../../services/swapi-service";
 import Loader from "../loader";
 import ErrorIndicator from "../error-indicator";
 
-export default class ItemList extends Component {
-    state = {
-        itemList: [],
-        loading: true,
-        error: false
-    };
+//HOC-helper
+import GetData from "../hoc-helper/get-data";
 
-    componentDidMount() {
-        const { getData } = this.props;
+const { getAllPeople } = new SwapiService();
 
-        getData()
-            .then(this.onItemListLoaded)
-            .catch(this.onError);
+const ItemList = ({data, onItemSelected, children: renderItems}) => {
 
-    };
-
-    onError = (err) => {
-        this.setState({
-            error: true,
-            loading: false
-        });
-    };
-
-    onItemListLoaded = (itemList) => {
-        this.setState({
-            itemList,
-            loading: false
-        });
-    };
-
-    renderItems(arr) {
-        return arr.map((item) => {
-
+    const items = data.map((item) => {
             const { id } = item;
-            const label = this.props.children(item);
+            const label = renderItems(item);
 
             return (
                 <span className="list-group-item"
                     key={id}
-                    onClick ={() => this.props.onItemSelected(id)}
+                    onClick ={() => onItemSelected(id)}
                 >
                     {label}
                 </span>
             )
         });
-    }
 
-    render() {
-        const { itemList, loading, error } = this.state;
+    return (
+        <div className="item-list list-group">
+            {items}
+        </div>
+    );
+};
 
-        const errorMessage = error ? <ErrorIndicator /> : null;
-        const loader = loading ? <Loader /> : null;
-
-        const items = this.renderItems(itemList);
-
-        return (
-                <div className="item-list list-group">
-                    {loader}
-                    {errorMessage}
-                    {items}
-                </div>
-        );
-  }
-}
+export default GetData(ItemList, getAllPeople);
